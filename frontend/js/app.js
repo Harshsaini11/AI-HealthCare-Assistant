@@ -1,4 +1,4 @@
-const API_URL = 'http://127.0.0.1:8000/api/analyze';
+const API_URL = 'https://ai-healthcare-assistant-backend-kgb9.onrender.com/api/analyze';
 
 // Master Disease Database
 const symptomData = {
