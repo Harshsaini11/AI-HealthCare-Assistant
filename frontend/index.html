@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Health Assistant</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+<header class="main-navbar">
+    <div class="nav-container">
+        <a href="home.html" class="nav-brand">
+            <i class="fa-solid fa-heart-pulse"></i>
+            <span>AI HealthCare</span>
+        </a>
+        <nav class="nav-links">
+            <a href="home.html" class="nav-item"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="patient_info.html" class="nav-item"><i class="fa-solid fa-user-plus"></i> Patient Profile</a>
+            <a href="index.html" class="nav-item"><i class="fa-solid fa-stethoscope"></i> Symptom Checker</a>
+        </nav>
+    </div>
+</header>
+    <div class="background-decor"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+            <h1>AI Health Assistant</h1>
+            <p>Smart Medical Guidance Powered by AI</p>
+        </header>
+
+        <!-- Input Form Card -->
+        <div class="card form-card">
+            <form id="symptomForm">
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="age"><i class="fa-solid fa-user"></i> Age</label>
+                        <input type="number" id="age" name="age" placeholder="e.g. 21" min="1" max="120" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="gender"><i class="fa-solid fa-venus-mars"></i> Gender</label>
+                        <select id="gender" name="gender" required>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Dynamic Category Selector -->
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="categorySelect"><i class="fa-solid fa-layer-group"></i> Symptom Category</label>
+                        <select id="categorySelect">
+    <option value="">-- Select Medical Category --</option>
+    <option value="fever">1. Fever, Infection & Chills (Bukhar aur Infection)</option>
+    <option value="pain">2. All Body Pains & Aches (Har Tarah Ka Dard)</option>
+    <option value="head_brain">3. Head, Brain & Nerves (Sar, Dimag aur Naso Ki Samasya)</option>
+    <option value="stomach_digestive">4. Stomach, Gut & Liver (Pet, Pachan aur Liver)</option>
+    <option value="chest_cardiac">5. Chest, Heart & BP (Chaati, Dil aur Blood Pressure)</option>
+    <option value="respiratory_lung">6. Cough, Cold, Asthma & Lungs (Khansi, Sardi aur Saans)</option>
+    <option value="skin_hair_allergy">7. Skin, Hair, Nails & Allergy (Tavcha, Baal aur Allergy)</option>
+    <option value="eye_ear_nose_throat">8. Eye, Ear, Nose & Throat (Ankh, Kaan, Naak aur Gala)</option>
+    <option value="kidney_urinary">9. Kidney, Bladder & Urine (Gurde aur Peshab Ki Samasya)</option>
+    <option value="bone_joint_muscle">10. Bones, Joints & Arthritis (Haddiyan, Jod aur Gathiya)</option>
+    <option value="endocrine_metabolic">11. Diabetes, Thyroid & Hormones (Sugar, Thyroid & Hormones)</option>
+    <option value="mental_sleep">12. Stress, Anxiety & Sleep Issues (Ghabrahat, Tanaav & Neend)</option>
+    <option value="women_health">13. Women's Health & Periods (Mahila Swasthya aur Periods)</option>
+    <option value="men_health">14. Men's Health & Vitality (Purush Swasthya)</option>
+    <option value="general_mild">15. General, Daily & Minor Ailments (Chhoti-Moti Rozmarra Ki Samasya)</option>
+</select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="symptomSelect"><i class="fa-solid fa-stethoscope"></i> Specific Condition / Symptom</label>
+                        <select id="symptomSelect" disabled>
+                            <option value="">-- Select Category First --</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Textarea for Additional Notes -->
+                <div class="input-group">
+                    <label for="symptoms"><i class="fa-solid fa-pen-to-square"></i> Additional Symptom Details / Notes</label>
+                    <textarea id="symptoms" name="symptoms" rows="3" placeholder="Select from dropdown above or type custom symptoms here..."></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn" class="btn-submit">
+                    <span>Analyze Symptoms</span>
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </button>
+            </form>
+        </div>
+
+        <!-- Result Section (Initially Hidden) -->
+        <div id="resultCard" class="card result-card hidden">
+            <!-- index.html me <div id="resultCard" ...> ke bilkul start me paste karein -->
+<div class="report-header-actions hidden-print">
+    <button type="button" id="downloadReportBtn" class="btn-download">
+        <i class="fa-solid fa-file-pdf"></i> Download / Print Patient Report
+    </button>
+</div>
+
+<!-- Print Only Header (Yeh sirf Print/PDF me dikhega) -->
+<div class="print-only-header">
+    <div class="print-hospital-brand">
+        <h2><i class="fa-solid fa-heart-pulse"></i> AI Medical Assistance Center</h2>
+        <p>Smart Symptom Analysis & Triage Report</p>
+    </div>
+    <hr class="print-divider">
+    <div id="printPatientDetails" class="print-patient-info">
+        <!-- JS se Patient Name, Age, Gender, Date populate hoga -->
+    </div>
+</div>
+
+            <div class="disclaimer-banner">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <div>
+                    <strong>Medical Disclaimer:</strong> This information is generated by AI for educational guidance only. Always consult a qualified MBBS doctor for medical emergencies.
+                </div>
+            </div>
+
+            <div class="urgency-bar" id="urgencyBar">
+                <span>Urgency Level:</span>
+                <strong id="urgencyText">Low</strong>
+            </div>
+
+            <h2 class="result-title"><i class="fa-solid fa-notes-medical"></i> Analysis Result</h2>
+
+            <div class="results-grid">
+                <div class="res-box cause-box">
+                    <h3><i class="fa-solid fa-magnifying-glass-chart"></i> Probable Causes</h3>
+                    <ul id="conditionsList"></ul>
+                </div>
+                <div class="res-box action-box">
+                    <h3><i class="fa-solid fa-circle-check"></i> What To Do</h3>
+                    <ul id="todoList"></ul>
+                </div>
+                <div class="res-box diet-box">
+                    <h3><i class="fa-solid fa-bowl-food"></i> Recommended Diet</h3>
+                    <ul id="dietList"></ul>
+                </div>
+                <div class="res-box avoid-box">
+                    <h3><i class="fa-solid fa-ban"></i> Things To Avoid</h3>
+                    <ul id="avoidList"></ul>
+                </div>
+
+<div class="res-box otc-box">
+    <h3><i class="fa-solid fa-pills"></i> Recommended OTC Medicines & First Aid</h3>
+    <p class="otc-note"><i class="fa-solid fa-circle-info"></i> Basic non-prescription medicines for temporary relief:</p>
+    <ul id="otcList"></ul>
+
+</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <!-- App Footer -->
+<footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <h3><i class="fa-solid fa-heart-pulse"></i> AI HealthCare</h3>
+            <p>Smart Medical Triage & AI Symptom Analysis Assistant for preliminary guidance.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="patient_info.html">Patient Profile</a></li>
+                <li><a href="index.html">Symptom Checker</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Emergency Helpline</h4>
+            <p><i class="fa-solid fa-phone"></i> National Emergency: <strong>112 / 108</strong></p>
+            <p><i class="fa-solid fa-ambulance"></i> Ambulance: <strong>102</strong></p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+    <p>&copy; 2026 AI HealthCare System. Educational & Guidance Purposes Only.</p>
+    <p class="developer-credit">
+        Designed & Developed with <i class="fa-solid fa-heart" style="color: #ef4444;"></i> by <strong>Harsh Kumar Saini</strong>
+    </p>
+</div>
+</footer>
+</body>
+</html>

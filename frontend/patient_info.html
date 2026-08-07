@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Registration - AI Health Assistant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+<header class="main-navbar">
+    <div class="nav-container">
+        <a href="home.html" class="nav-brand">
+            <i class="fa-solid fa-heart-pulse"></i>
+            <span>AI HealthCare</span>
+        </a>
+        <nav class="nav-links">
+            <a href="home.html" class="nav-item"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="patient_info.html" class="nav-item active"><i class="fa-solid fa-user-gear"></i> Patient Profile</a>
+        </nav>
+    </div>
+</header>
+    <div class="background-decor"></div>
+
+    <div class="container">
+        <header class="app-header">
+            <div class="logo-icon"><i class="fa-solid fa-id-card-clip"></i></div>
+            <h1>Patient Profile</h1>
+            <p>Please provide basic details for personalized AI medical analysis</p>
+        </header>
+
+        <div class="card form-card">
+            <form id="patientForm">
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="fullName"><i class="fa-solid fa-user"></i> Full Name</label>
+                        <input type="text" id="fullName" placeholder="e.g. Rahul Sharma" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="phone"><i class="fa-solid fa-phone"></i> Mobile Number</label>
+                        <input type="tel" id="phone" placeholder="10-digit phone number" pattern="[0-9]{10}">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="pAge"><i class="fa-solid fa-cake-candles"></i> Age</label>
+                        <input type="number" id="pAge" min="1" max="120" placeholder="e.g. 21" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="pGender"><i class="fa-solid fa-venus-mars"></i> Gender</label>
+                        <select id="pGender" required>
+                            <option value="">-- Select Gender --</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="bloodGroup"><i class="fa-solid fa-droplet"></i> Blood Group (Optional)</label>
+                        <select id="bloodGroup">
+                            <option value="Not Known">Don't Know</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="allergies"><i class="fa-solid fa-hand-dots"></i> Known Drug Allergies</label>
+                        <input type="text" id="allergies" placeholder="e.g. Penicillin, Sulfa drugs, or None">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="history"><i class="fa-solid fa-notes-medical"></i> Pre-existing Conditions / Medical History</label>
+                    <textarea id="history" rows="2" placeholder="e.g. Diabetes, BP, Asthma, Heart Condition, or None"></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <span>Proceed to Symptom Checker</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('patientForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const patientData = {
+                name: document.getElementById('fullName').value,
+                phone: document.getElementById('phone').value,
+                age: document.getElementById('pAge').value,
+                gender: document.getElementById('pGender').value,
+                bloodGroup: document.getElementById('bloodGroup').value,
+                allergies: document.getElementById('allergies').value || 'None',
+                history: document.getElementById('history').value || 'None'
+            };
+
+            // Save details locally
+            localStorage.setItem('patientProfile', JSON.stringify(patientData));
+            
+            // Redirect to index.html (Symptom Checker)
+            window.location.href = 'index.html';
+        });
+    </script>
+    <!-- App Footer -->
+<footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <h3><i class="fa-solid fa-heart-pulse"></i> AI HealthCare</h3>
+            <p>Smart Medical Triage & AI Symptom Analysis Assistant for preliminary guidance.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="patient_info.html">Patient Profile</a></li>
+                <li><a href="index.html">Symptom Checker</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Emergency Helpline</h4>
+            <p><i class="fa-solid fa-phone"></i> National Emergency: <strong>112 / 108</strong></p>
+            <p><i class="fa-solid fa-ambulance"></i> Ambulance: <strong>102</strong></p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+    <p>&copy; 2026 AI HealthCare System. Educational & Guidance Purposes Only.</p>
+    <p class="developer-credit">
+        Designed & Developed with <i class="fa-solid fa-heart" style="color: #ef4444;"></i> by <strong>Harsh Kumar Saini</strong>
+    </p>
+</div>
+</footer>
+</body>
+</html>

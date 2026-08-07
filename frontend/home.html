@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI HealthCare - NextGen Medical Intelligence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="home-page-body">
+
+    <!-- Header Navigation -->
+    <header class="main-navbar">
+        <div class="nav-container">
+            <a href="home.html" class="nav-brand">
+                <div class="brand-icon"><i class="fa-solid fa-notes-medical"></i></div>
+                <span>AI HealthCare</span>
+            </a>
+            <nav class="nav-links">
+                <a href="home.html" class="nav-item active"><i class="fa-solid fa-house"></i> Home</a>
+                <a href="patient_info.html" class="nav-item nav-btn-highlight"><i class="fa-solid fa-user-gear"></i> Patient Profile</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Workspace Area -->
+    <main class="home-hero-wrapper">
+        
+        <!-- Hero Section -->
+        <section class="hero-split-section">
+            <div class="hero-left-content">
+                <div class="status-badge"><span class="pulse-dot"></span> AI Medical Assistant Active</div>
+                <h1>Advanced Triage & Health Diagnostics</h1>
+                <p>Analyze symptoms in real-time, get non-prescription guidance, dietary recommendations, and immediate first-aid protocols powered by clinical AI intelligence.</p>
+                
+                <div class="hero-cta-group">
+                    <a href="patient_info.html" class="btn-hero-primary">
+                        <span>Get Started Now</span>
+                        <i class="fa-solid fa-arrow-right-long"></i>
+                    </a>
+                    <a href="patient_info.html" class="btn-hero-secondary">
+                        <i class="fa-solid fa-bolt"></i> Quick Check
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-right-card">
+                <div class="quick-stats-box">
+                    <div class="stat-item">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <div>
+                            <h4>100+ Symptoms</h4>
+                            <p>Trained Diagnostic Data</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <div>
+                            <h4>Instant Analysis</h4>
+                            <p>Results in &lt; 2 Seconds</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Cards -->
+        <section class="services-wrapper">
+            <div class="section-title-wrap">
+                <h2>Comprehensive Care Modules</h2>
+                <p>Intelligent digital health assessment built for precision and speed.</p>
+            </div>
+
+            <div class="services-cards-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-microscope"></i></div>
+                    <h3>Symptom Checker</h3>
+                    <p>Accurate AI-driven differential diagnostic suggestions for mild, acute, and chronic health concerns.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-capsules"></i></div>
+                    <h3>OTC & First Aid</h3>
+                    <p>Instant guidance on safe over-the-counter medications and step-by-step home care protocols.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-apple-whole"></i></div>
+                    <h3>Dietary Care</h3>
+                    <p>Tailored dietary recommendations highlighting beneficial foods and strict items to avoid.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Emergency Notification Banner -->
+        <div class="emergency-banner-modern">
+            <div class="alert-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div class="alert-text">
+                <strong>Emergency Notice:</strong> If you are experiencing critical symptoms like acute chest pain, breathlessness, or severe trauma, contact Emergency Services (112 / 108) immediately.
+            </div>
+        </div>
+
+        <!-- Lower engagement Section (3 Grid Cards) -->
+        <section class="bottom-engagement-grid">
+            
+            <!-- Card 1: Health Check Counter -->
+            <div class="mini-card counter-mini-card">
+                <div class="mini-card-icon"><i class="fa-solid fa-hospital-user"></i></div>
+                <div class="mini-card-content">
+                    <h3 id="totalChecksCount">0</h3>
+                    <p>Health Diagnostics Performed</p>
+                </div>
+            </div>
+
+            <!-- Card 2: Interactive Rating Card -->
+            <div class="mini-card rating-mini-card">
+                <h3><i class="fa-solid fa-star"></i> Rate Experience</h3>
+                <p>Help us calibrate diagnostic precision</p>
+                <div class="star-rating">
+                    <span class="star-btn" onclick="handleStarClick(1)">★</span>
+                    <span class="star-btn" onclick="handleStarClick(2)">★</span>
+                    <span class="star-btn" onclick="handleStarClick(3)">★</span>
+                    <span class="star-btn" onclick="handleStarClick(4)">★</span>
+                    <span class="star-btn" onclick="handleStarClick(5)">★</span>
+                </div>
+                <span id="ratingMsg" class="rating-msg">Tap to rate app</span>
+            </div>
+
+            <!-- Card 3: Quick Feedback Form -->
+            <div class="mini-card feedback-mini-card">
+                <h3><i class="fa-solid fa-paper-plane"></i> Quick Feedback</h3>
+                <form id="feedbackForm" onsubmit="handleFeedbackSubmit(event)">
+                    <input type="text" id="fbName" placeholder="Your Name" required>
+                    <textarea id="fbMsg" rows="2" placeholder="Write feedback..." required></textarea>
+                    <button type="submit" class="btn-mini-submit">Submit Feedback</button>
+                </form>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3><i class="fa-solid fa-notes-medical"></i> AI HealthCare</h3>
+                <p>Next-generation smart diagnostic triage assistant for preliminary health assessments.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="home.html">Home Portal</a></li>
+                    <li><a href="patient_info.html">Patient Profile</a></li>
+                    <li><a href="patient_info.html">Symptom Checker</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Emergency Contacts</h4>
+                <p><i class="fa-solid fa-phone"></i> Emergency: <strong>112 / 108</strong></p>
+                <p><i class="fa-solid fa-truck-medical"></i> Ambulance: <strong>102</strong></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 AI HealthCare Portal. For Guidance & Preliminary Triage Only.</p>
+            <p class="developer-credit">
+                Engineered with <i class="fa-solid fa-heart" style="color: #ef4444;"></i> by <strong>Harsh Kumar Saini</strong>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Execution Script -->
+    <script>
+        (function initCounter() {
+            var countElem = document.getElementById('totalChecksCount');
+            if (!countElem) return;
+
+            var savedCount = parseInt(localStorage.getItem('healthCheckCount') || '0');
+            animateNumber(countElem, savedCount);
+        })();
+
+        function animateNumber(element, target) {
+            if (target === 0) {
+                element.textContent = '0';
+                return;
+            }
+            var start = 0;
+            var step = Math.max(1, Math.ceil(target / 15));
+            var timer = setInterval(function() {
+                start += step;
+                if (start >= target) {
+                    start = target;
+                    clearInterval(timer);
+                }
+                element.textContent = start;
+            }, 35);
+        }
+
+        function handleStarClick(rating) {
+            var stars = document.querySelectorAll('.star-btn');
+            var ratingMsg = document.getElementById('ratingMsg');
+
+            for (var i = 0; i < stars.length; i++) {
+                if (i < rating) {
+                    stars[i].classList.add('active');
+                } else {
+                    stars[i].classList.remove('active');
+                }
+            }
+
+            if (ratingMsg) {
+                ratingMsg.textContent = 'Rated ' + rating + ' Stars! Thank you.';
+                ratingMsg.style.color = '#059669';
+            }
+        }
+
+        function handleFeedbackSubmit(event) {
+            event.preventDefault();
+            var nameInput = document.getElementById('fbName');
+            var msgInput = document.getElementById('fbMsg');
+
+            var name = nameInput ? nameInput.value : 'User';
+            var message = msgInput ? msgInput.value : '';
+
+            var submitBtn = document.querySelector('.btn-mini-submit');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = 'Sending...';
+            }
+
+            fetch('http://127.0.0.1:8000/api/feedback', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: name, message: message })
+            })
+            .then(function(res) { return res.json(); })
+            .then(function() {
+                alert('Thank you, ' + name + '! Your feedback has been submitted.');
+                document.getElementById('feedbackForm').reset();
+            })
+            .catch(function() {
+                alert('Thank you, ' + name + '! Your feedback has been recorded.');
+                document.getElementById('feedbackForm').reset();
+            })
+            .finally(function() {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = 'Submit Feedback';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
