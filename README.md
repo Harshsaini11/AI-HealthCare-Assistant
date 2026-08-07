@@ -2,6 +2,8 @@
 
 An interactive, AI-powered healthcare triage system that assists users with instant symptom analysis, differential diagnostic suggestions, non-prescription OTC medicine recommendations, and dietary guidance. Built with a modern SaaS-inspired responsive UI and a Node.js backend integration.
 
+Live Link : [https://ai-healthcare-assistant-jn7f.onrender.com]
+
 ---
 
 ## 🌟 Key Features
@@ -49,8 +51,7 @@ Steps
 Clone the Repository:
 
 Bash
-git clone [https://github.com/YOUR_USERNAME/ai-healthcare-assistant.git](https://github.com/YOUR_USERNAME/ai-healthcare-assistant.git)
-cd ai-healthcare-assistant
+git clone [https://github.com/Harshsaini11/AI-HealthCare-Assistant.git](https://github.com/Harshsaini11/AI-HealthCare-Assistant.git)
 Backend Setup:
 
 Bash
