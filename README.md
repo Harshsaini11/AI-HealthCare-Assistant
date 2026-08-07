@@ -73,7 +73,7 @@ Open frontend/home.html in your browser or run via VS Code Live Server.
 ⚠️ Medical Disclaimer
 This application is designed solely for educational and preliminary guidance purposes. It is not a substitute for professional medical advice, diagnosis, or treatment. Always seek immediate assistance from a licensed medical practitioner or emergency helpline (112 / 108) during severe medical events.
 
-👨‍💻 
-Harsh Kumar Saini
+👨‍💻 Author
+Engineered with ❤️ by Harsh Kumar Saini
 
 Full-Stack & Software Developer
