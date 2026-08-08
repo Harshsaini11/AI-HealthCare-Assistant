@@ -926,8 +926,11 @@ input:focus, select:focus, textarea:focus {
 
 /* Modern Language Switcher Button Style */
 .btn-lang-switch {
+    white-space: nowrap !important;
+    min-width: 160px;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     padding: 8px 16px;
     background: linear-gradient(135deg, #1e293b, #0f172a);
@@ -963,8 +966,6 @@ input:focus, select:focus, textarea:focus {
     
     .btn-lang-switch {
         width: 100%;
-        white-space: nowrap;
-        min-width: 150px;
         justify-content: center;
     }
 }
