@@ -47,104 +47,86 @@ app.post('/api/analyze', async (req, res) => {
         const { age, gender, symptoms } = req.body;
 
         const prompt = `
-        You are an expert AI Healthcare Assistant. Analyze the patient symptoms in deep detail.
+        You are an AI Healthcare Assistant capable of analyzing ANY disease, symptom, or medical condition.
+        
         Patient Details:
         - Age: ${age}
         - Gender: ${gender}
-        - Symptoms: ${symptoms}
+        - Symptoms/Condition: ${symptoms}
 
-        Provide an extensive medical triage report in TWO languages: "english" and "hindi" (Written strictly in proper Hindi Devanagari script).
+        Provide a clean triage report for this condition in TWO languages: "english" and "hindi" (Written strictly in proper Hindi Devanagari script).
 
-        STRICT REQUIREMENTS FOR BULLET POINTS:
-        - MUST generate AT LEAST 5 TO 6 DETAILED BULLET POINTS for EVERY SINGLE array section.
-        - Do NOT stop at 2 or 3 points under any circumstances.
-        - Ensure both "english" and "hindi" responses have 5 to 6 points each.
+        STRICT UNIVERSAL FORMATTING RULES:
+        - Works for ANY medical symptom/disease.
+        - Provide EXACTLY 4 TO 5 BULLET POINTS for EVERY section array.
+        - STRICT MAX LENGTH: Maximum 3 to 6 words per bullet point ONLY.
+        - NO paragraphs, NO definitions, NO long explanations. Only short, crisp titles/phrases.
 
         Return strictly this JSON structure:
         {
           "english": {
             "possible_conditions": [
-              "Detailed Cause 1",
-              "Detailed Cause 2",
-              "Detailed Cause 3",
-              "Detailed Cause 4",
-              "Detailed Cause 5",
-              "Detailed Cause 6"
+              "Short Condition Name 1",
+              "Short Condition Name 2",
+              "Short Condition Name 3",
+              "Short Condition Name 4"
             ],
             "what_to_do": [
-              "Immediate Action 1",
-              "Self-care Step 2",
-              "Home Management Step 3",
-              "Monitoring Step 4",
-              "Warning Signs Step 5",
-              "When to see doctor Step 6"
+              "Short Action Step 1",
+              "Short Action Step 2",
+              "Short Action Step 3",
+              "Short Action Step 4"
             ],
             "what_to_eat": [
-              "Dietary Advice 1 (Hydration)",
-              "Nutrient Recommendation 2",
-              "Healing Foods 3",
-              "Easily Digestible Food 4",
-              "Vitamins/Minerals Support 5",
-              "Recovery Food 6"
+              "Short Diet Advice 1",
+              "Short Diet Advice 2",
+              "Short Diet Advice 3",
+              "Short Diet Advice 4"
             ],
             "what_to_avoid": [
-              "Avoid Activity/Food 1",
-              "Avoid Item 2",
-              "Avoid Trigger 3",
-              "Avoid Harmful Habit 4",
-              "Avoid Environment 5",
-              "Avoid Medication Error 6"
+              "Short Avoid Item 1",
+              "Short Avoid Item 2",
+              "Short Avoid Item 3",
+              "Short Avoid Item 4"
             ],
             "otc_medications": [
-              "First Aid / Pain Relief Option 1",
-              "Symptom Support Option 2",
-              "Soothing Agent / Electrolytes 3",
-              "Secondary Relief OTC 4",
-              "Topical or Supportive Measure 5"
+              "Short OTC Measure 1",
+              "Short OTC Measure 2",
+              "Short OTC Measure 3"
             ],
-            "doctor_urgency": "Low / Moderate / Emergency High"
+            "doctor_urgency": "Low / Moderate / High"
           },
           "hindi": {
             "possible_conditions": [
-              "संभावित कारण 1 (विस्तार में)",
-              "संभावित कारण 2",
-              "संभावित कारण 3",
-              "संभावित कारण 4",
-              "संभावित कारण 5",
-              "संभावित कारण 6"
+              "संक्षिप्त कारण/बीमारी 1",
+              "संक्षिप्त कारण/बीमारी 2",
+              "संक्षिप्त कारण/बीमारी 3",
+              "संक्षिप्त कारण/बीमारी 4"
             ],
             "what_to_do": [
-              "ज़रूरी कदम 1 (तुरंत)",
-              "सुरक्षा निर्देश 2",
-              "घर पर ध्यान रखने योग्य बात 3",
-              "लक्षणों की निगरानी 4",
-              "चेतावनी के संकेत 5",
-              "डॉक्टर को कब दिखाएं 6"
+              "संक्षिप्त कदम 1",
+              "संक्षिप्त कदम 2",
+              "संक्षिप्त कदम 3",
+              "संक्षिप्त कदम 4"
             ],
             "what_to_eat": [
-              "आहार संबंधी सलाह 1 (पानी/तरल पदार्थ)",
-              "पौष्टिक भोजन 2",
-              "हल्का और सुपाच्य आहार 3",
-              "लाभदायक फल या सब्जियां 4",
-              "इम्यूनिटी बढ़ाने वाली चीज़ें 5",
-              "रिकवरी फ़ूड 6"
+              "संक्षिप्त आहार सलाह 1",
+              "संक्षिप्त आहार सलाह 2",
+              "संक्षिप्त आहार सलाह 3",
+              "संक्षिप्त आहार सलाह 4"
             ],
             "what_to_avoid": [
-              "किस चीज़ से बचें 1 (गतिविधियां)",
-              "परहेज़ योग्य खाना/पीना 2",
-              "नुकसानदेह आदतें 3",
-              "ट्रिगर्स से बचाव 4",
-              "अप्रिय वातावरण से बचें 5",
-              "बिना डॉक्टरी सलाह की हैवी मेडिसिन 6"
+              "संक्षिप्त परहेज़ 1",
+              "संक्षिप्त परहेज़ 2",
+              "संक्षिप्त परहेज़ 3",
+              "संक्षिप्त परहेज़ 4"
             ],
             "otc_medications": [
-              "प्राथमिक उपचार / दर्द निवारक 1",
-              "लक्षण राहत की दवा 2",
-              "इलेक्ट्रोलाइट्स / ओआरएस 3",
-              "अस्थाई राहत का विकल्प 4",
-              "सहायक फर्स्ट एड उपाय 5"
+              "संक्षिप्त दवा/राहत उपाय 1",
+              "संक्षिप्त दवा/राहत उपाय 2",
+              "संक्षिप्त दवा/राहत उपाय 3"
             ],
-            "doctor_urgency": "कम / मध्यम / तुरंत डॉक्टर से संपर्क करें"
+            "doctor_urgency": "कम / मध्यम / उच्च"
           }
         }
         `;
