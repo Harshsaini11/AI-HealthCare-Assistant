@@ -47,33 +47,104 @@ app.post('/api/analyze', async (req, res) => {
         const { age, gender, symptoms } = req.body;
 
         const prompt = `
-        You are an AI Healthcare Assistant. Analyze the patient and respond in valid JSON format ONLY.
+        You are an expert AI Healthcare Assistant. Analyze the patient symptoms in deep detail.
         Patient Details:
         - Age: ${age}
         - Gender: ${gender}
         - Symptoms: ${symptoms}
 
-        Provide the triage analysis in TWO languages: "english" and "hindi" (Written in proper Hindi Devanagari script).
+        Provide an extensive medical triage report in TWO languages: "english" and "hindi" (Written strictly in proper Hindi Devanagari script).
+
+        STRICT REQUIREMENTS FOR BULLET POINTS:
+        - MUST generate AT LEAST 5 TO 6 DETAILED BULLET POINTS for EVERY SINGLE array section.
+        - Do NOT stop at 2 or 3 points under any circumstances.
+        - Ensure both "english" and "hindi" responses have 5 to 6 points each.
 
         Return strictly this JSON structure:
         {
           "english": {
-            "possible_conditions": ["Condition 1", "Condition 2"],
-            "what_to_do": ["Step 1", "Step 2"],
-            "what_to_eat": ["Food 1", "Food 2"],
-            "what_to_avoid": ["Avoid 1", "Avoid 2"],
-            "otc_medications": ["Medicine 1"],
-            "doctor_urgency": "Low",
-            "disclaimer": "Informational purposes only."
+            "possible_conditions": [
+              "Detailed Cause 1",
+              "Detailed Cause 2",
+              "Detailed Cause 3",
+              "Detailed Cause 4",
+              "Detailed Cause 5",
+              "Detailed Cause 6"
+            ],
+            "what_to_do": [
+              "Immediate Action 1",
+              "Self-care Step 2",
+              "Home Management Step 3",
+              "Monitoring Step 4",
+              "Warning Signs Step 5",
+              "When to see doctor Step 6"
+            ],
+            "what_to_eat": [
+              "Dietary Advice 1 (Hydration)",
+              "Nutrient Recommendation 2",
+              "Healing Foods 3",
+              "Easily Digestible Food 4",
+              "Vitamins/Minerals Support 5",
+              "Recovery Food 6"
+            ],
+            "what_to_avoid": [
+              "Avoid Activity/Food 1",
+              "Avoid Item 2",
+              "Avoid Trigger 3",
+              "Avoid Harmful Habit 4",
+              "Avoid Environment 5",
+              "Avoid Medication Error 6"
+            ],
+            "otc_medications": [
+              "First Aid / Pain Relief Option 1",
+              "Symptom Support Option 2",
+              "Soothing Agent / Electrolytes 3",
+              "Secondary Relief OTC 4",
+              "Topical or Supportive Measure 5"
+            ],
+            "doctor_urgency": "Low / Moderate / Emergency High"
           },
           "hindi": {
-            "possible_conditions": ["कारण 1", "कारण 2"],
-            "what_to_do": ["क्या करें 1", "क्या करें 2"],
-            "what_to_eat": ["क्या खाएं 1", "क्या खाएं 2"],
-            "what_to_avoid": ["किस चीज़ से बचें 1", "किस चीज़ से बचें 2"],
-            "otc_medications": ["दवा 1"],
-            "doctor_urgency": "कम / सामान्य",
-            "disclaimer": "केवल जानकारी के लिए है, डॉक्टर की सलाह जरूरी है।"
+            "possible_conditions": [
+              "संभावित कारण 1 (विस्तार में)",
+              "संभावित कारण 2",
+              "संभावित कारण 3",
+              "संभावित कारण 4",
+              "संभावित कारण 5",
+              "संभावित कारण 6"
+            ],
+            "what_to_do": [
+              "ज़रूरी कदम 1 (तुरंत)",
+              "सुरक्षा निर्देश 2",
+              "घर पर ध्यान रखने योग्य बात 3",
+              "लक्षणों की निगरानी 4",
+              "चेतावनी के संकेत 5",
+              "डॉक्टर को कब दिखाएं 6"
+            ],
+            "what_to_eat": [
+              "आहार संबंधी सलाह 1 (पानी/तरल पदार्थ)",
+              "पौष्टिक भोजन 2",
+              "हल्का और सुपाच्य आहार 3",
+              "लाभदायक फल या सब्जियां 4",
+              "इम्यूनिटी बढ़ाने वाली चीज़ें 5",
+              "रिकवरी फ़ूड 6"
+            ],
+            "what_to_avoid": [
+              "किस चीज़ से बचें 1 (गतिविधियां)",
+              "परहेज़ योग्य खाना/पीना 2",
+              "नुकसानदेह आदतें 3",
+              "ट्रिगर्स से बचाव 4",
+              "अप्रिय वातावरण से बचें 5",
+              "बिना डॉक्टरी सलाह की हैवी मेडिसिन 6"
+            ],
+            "otc_medications": [
+              "प्राथमिक उपचार / दर्द निवारक 1",
+              "लक्षण राहत की दवा 2",
+              "इलेक्ट्रोलाइट्स / ओआरएस 3",
+              "अस्थाई राहत का विकल्प 4",
+              "सहायक फर्स्ट एड उपाय 5"
+            ],
+            "doctor_urgency": "कम / मध्यम / तुरंत डॉक्टर से संपर्क करें"
           }
         }
         `;
