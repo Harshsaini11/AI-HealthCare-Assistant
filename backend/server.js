@@ -47,21 +47,34 @@ app.post('/api/analyze', async (req, res) => {
         const { age, gender, symptoms } = req.body;
 
         const prompt = `
-        You are an AI Healthcare Assistant. Analyze the patient and respond in valid JSON format.
+        You are an AI Healthcare Assistant. Analyze the patient and respond in valid JSON format ONLY.
         Patient Details:
         - Age: ${age}
         - Gender: ${gender}
         - Symptoms: ${symptoms}
 
-        Return strict JSON structure:
+        Provide the triage analysis in TWO languages: "english" and "hindi" (Written in proper Hindi Devanagari script).
+
+        Return strictly this JSON structure:
         {
-          "possible_conditions": ["Condition 1", "Condition 2"],
-          "what_to_do": ["Step 1", "Step 2"],
-          "what_to_eat": ["Food 1", "Food 2"],
-          "what_to_avoid": ["Avoid 1", "Avoid 2"],
-          "otc_medications": ["Medicine 1"],
-          "doctor_urgency": "Low",
-          "disclaimer": "Informational purposes only."
+          "english": {
+            "possible_conditions": ["Condition 1", "Condition 2"],
+            "what_to_do": ["Step 1", "Step 2"],
+            "what_to_eat": ["Food 1", "Food 2"],
+            "what_to_avoid": ["Avoid 1", "Avoid 2"],
+            "otc_medications": ["Medicine 1"],
+            "doctor_urgency": "Low",
+            "disclaimer": "Informational purposes only."
+          },
+          "hindi": {
+            "possible_conditions": ["कारण 1", "कारण 2"],
+            "what_to_do": ["क्या करें 1", "क्या करें 2"],
+            "what_to_eat": ["क्या खाएं 1", "क्या खाएं 2"],
+            "what_to_avoid": ["किस चीज़ से बचें 1", "किस चीज़ से बचें 2"],
+            "otc_medications": ["दवा 1"],
+            "doctor_urgency": "कम / सामान्य",
+            "disclaimer": "केवल जानकारी के लिए है, डॉक्टर की सलाह जरूरी है।"
+          }
         }
         `;
 
@@ -71,7 +84,6 @@ app.post('/api/analyze', async (req, res) => {
             response_format: { type: 'json_object' }
         });
 
-        // Successful analysis par count +1 karein
         incrementCheckCount();
 
         const data = JSON.parse(chatCompletion.choices[0].message.content);
