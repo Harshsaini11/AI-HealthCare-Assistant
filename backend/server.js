@@ -41,7 +41,7 @@ app.get('/api/stats', (req, res) => {
     res.json({ totalChecks: getCheckCount() });
 });
 
-// 2. POST API: Symptom Analysis
+// 2. POST API: Symptom Analysis (Multi-Language Enabled)
 app.post('/api/analyze', async (req, res) => {
     try {
         const { age, gender, symptoms } = req.body;
@@ -93,7 +93,6 @@ app.post('/api/analyze', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-
 const nodemailer = require('nodemailer');
 
 // Email Transporter Configuration
@@ -172,4 +171,5 @@ app.post('/api/symptoms', async (req, res) => {
         res.status(500).json({ success: false, error: "Triage generation failed." });
     }
 });
+
 app.listen(8000, () => console.log('Node.js Server running on port 8000'));
