@@ -47,84 +47,88 @@ app.post('/api/analyze', async (req, res) => {
         const { age, gender, symptoms } = req.body;
 
         const prompt = `
-        You are an AI Healthcare Assistant capable of analyzing ANY disease, symptom, or medical condition.
+        You are an AI Healthcare Assistant capable of analyzing ANY disease or medical symptom.
         
         Patient Details:
         - Age: ${age}
         - Gender: ${gender}
         - Symptoms/Condition: ${symptoms}
 
-        Provide a clean triage report for this condition in TWO languages: "english" and "hindi" (Written strictly in proper Hindi Devanagari script).
+        Provide a clean triage report in TWO languages: "english" and "hindi" (Written strictly in proper Hindi Devanagari script).
 
-        STRICT UNIVERSAL FORMATTING RULES:
-        - Works for ANY medical symptom/disease.
-        - Provide EXACTLY 4 TO 5 BULLET POINTS for EVERY section array.
-        - STRICT MAX LENGTH: Maximum 3 to 6 words per bullet point ONLY.
-        - NO paragraphs, NO definitions, NO long explanations. Only short, crisp titles/phrases.
+        STRICT FORMATTING & LENGTH RULES:
+        1. "possible_conditions", "what_to_do", "what_to_eat", and "what_to_avoid" MUST HAVE EXACTLY 5 BULLET POINTS EACH.
+        2. "otc_medications" SHOULD BE DYNAMIC: Analyze the symptom and automatically decide the safe number of OTC/first-aid recommendations needed (can be 2 to 4 relevant items).
+        3. EVERY SINGLE BULLET POINT MUST BE EXACTLY ONE COMPLETE SENTENCE (10 to 14 words per line).
+        4. No paragraph dumps, no definitions, and no 2-word super short phrases. Exactly ONE well-formed sentence per line.
 
         Return strictly this JSON structure:
         {
           "english": {
             "possible_conditions": [
-              "Short Condition Name 1",
-              "Short Condition Name 2",
-              "Short Condition Name 3",
-              "Short Condition Name 4"
+              "One complete sentence explaining the first potential cause clearly.",
+              "One complete sentence explaining the second potential cause clearly.",
+              "One complete sentence explaining the third potential cause clearly.",
+              "One complete sentence explaining the fourth potential cause clearly.",
+              "One complete sentence explaining the fifth potential cause clearly."
             ],
             "what_to_do": [
-              "Short Action Step 1",
-              "Short Action Step 2",
-              "Short Action Step 3",
-              "Short Action Step 4"
+              "One complete sentence giving proper guidance on what step to take.",
+              "One complete sentence giving proper guidance on what step to take.",
+              "One complete sentence giving proper guidance on what step to take.",
+              "One complete sentence giving proper guidance on what step to take.",
+              "One complete sentence giving proper guidance on what step to take."
             ],
             "what_to_eat": [
-              "Short Diet Advice 1",
-              "Short Diet Advice 2",
-              "Short Diet Advice 3",
-              "Short Diet Advice 4"
+              "One complete sentence suggesting helpful food or drinks for recovery.",
+              "One complete sentence suggesting helpful food or drinks for recovery.",
+              "One complete sentence suggesting helpful food or drinks for recovery.",
+              "One complete sentence suggesting helpful food or drinks for recovery.",
+              "One complete sentence suggesting helpful food or drinks for recovery."
             ],
             "what_to_avoid": [
-              "Short Avoid Item 1",
-              "Short Avoid Item 2",
-              "Short Avoid Item 3",
-              "Short Avoid Item 4"
+              "One complete sentence detailing specific foods or habits to strictly avoid.",
+              "One complete sentence detailing specific foods or habits to strictly avoid.",
+              "One complete sentence detailing specific foods or habits to strictly avoid.",
+              "One complete sentence detailing specific foods or habits to strictly avoid.",
+              "One complete sentence detailing specific foods or habits to strictly avoid."
             ],
             "otc_medications": [
-              "Short OTC Measure 1",
-              "Short OTC Measure 2",
-              "Short OTC Measure 3"
+              "Medicine Name - Short one line description of its use."
             ],
             "doctor_urgency": "Low / Moderate / High"
           },
           "hindi": {
             "possible_conditions": [
-              "संक्षिप्त कारण/बीमारी 1",
-              "संक्षिप्त कारण/बीमारी 2",
-              "संक्षिप्त कारण/बीमारी 3",
-              "संक्षिप्त कारण/बीमारी 4"
+              "पहला संभावित कारण स्पष्ट करते हुए एक पूरा वाक्य।",
+              "दूसरा संभावित कारण स्पष्ट करते हुए एक पूरा वाक्य।",
+              "तीसरा संभावित कारण स्पष्ट करते हुए एक पूरा वाक्य।",
+              "चौथा संभावित कारण स्पष्ट करते हुए एक पूरा वाक्य।",
+              "पांचवां संभावित कारण स्पष्ट करते हुए एक पूरा वाक्य।"
             ],
             "what_to_do": [
-              "संक्षिप्त कदम 1",
-              "संक्षिप्त कदम 2",
-              "संक्षिप्त कदम 3",
-              "संक्षिप्त कदम 4"
+              "उचित देखभाल के लिए एक पूरा और स्पष्ट वाक्य।",
+              "उचित देखभाल के लिए एक पूरा और स्पष्ट वाक्य।",
+              "उचित देखभाल के लिए एक पूरा और स्पष्ट वाक्य।",
+              "उचित देखभाल के लिए एक पूरा और स्पष्ट वाक्य।",
+              "उचित देखभाल के लिए एक पूरा और स्पष्ट वाक्य।"
             ],
             "what_to_eat": [
-              "संक्षिप्त आहार सलाह 1",
-              "संक्षिप्त आहार सलाह 2",
-              "संक्षिप्त आहार सलाह 3",
-              "संक्षिप्त आहार सलाह 4"
+              "आहार और पौष्टिक भोजन से जुड़ा एक पूरा वाक्य।",
+              "आहार और पौष्टिक भोजन से जुड़ा एक पूरा वाक्य।",
+              "आहार और पौष्टिक भोजन से जुड़ा एक पूरा वाक्य।",
+              "आहार और पौष्टिक भोजन से जुड़ा एक पूरा वाक्य।",
+              "आहार और पौष्टिक भोजन से जुड़ा एक पूरा वाक्य।"
             ],
             "what_to_avoid": [
-              "संक्षिप्त परहेज़ 1",
-              "संक्षिप्त परहेज़ 2",
-              "संक्षिप्त परहेज़ 3",
-              "संक्षिप्त परहेज़ 4"
+              "परहेज़ और सावधानियों से संबंधित एक पूरा वाक्य।",
+              "परहेज़ और सावधानियों से संबंधित एक पूरा वाक्य।",
+              "परहेज़ और सावधानियों से संबंधित एक पूरा वाक्य।",
+              "परहेज़ और सावधानियों से संबंधित एक पूरा वाक्य।",
+              "परहेज़ और सावधानियों से संबंधित एक पूरा वाक्य।"
             ],
             "otc_medications": [
-              "संक्षिप्त दवा/राहत उपाय 1",
-              "संक्षिप्त दवा/राहत उपाय 2",
-              "संक्षिप्त दवा/राहत उपाय 3"
+              "दवा का नाम - यह किस काम आती है उसकी संक्षिप्त जानकारी "
             ],
             "doctor_urgency": "कम / मध्यम / उच्च"
           }
