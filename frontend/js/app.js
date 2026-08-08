@@ -1,5 +1,8 @@
 const API_URL = 'https://ai-healthcare-assistant-backend-kgb9.onrender.com/api/analyze';
 
+let triageResult = null;
+let currentLanguage = 'english';
+
 // Master Disease Database
 const symptomData = {
     fever: [
@@ -301,6 +304,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 const data = await response.json();
+                triageResult = data;
+                currentLanguage = 'english';
+                const btn = document.getElementById('langToggleBtn');
+                if (btn) btn.innerHTML = '🌐 Switch to Hindi';
+                
                 renderResults(data);
                 let currentCount = parseInt(localStorage.getItem('healthCheckCount') || '0');
                 localStorage.setItem('healthCheckCount', currentCount + 1);
@@ -436,4 +444,81 @@ function submitFeedback(event) {
     const name = nameInput && nameInput.value ? nameInput.value : 'User';
     alert(`Thank you ${name}! Your feedback has been submitted.`);
     document.getElementById('feedbackForm').reset();
+}
+
+async function analyzeSymptoms(event) {
+    if (event) event.preventDefault();
+
+    const payload = {
+        age: document.getElementById('pAge') ? document.getElementById('pAge').value : '',
+        gender: document.getElementById('pGender') ? document.getElementById('pGender').value : '',
+        symptoms: document.getElementById('symptomsInput') ? document.getElementById('symptomsInput').value : ''
+    };
+
+    try {
+        const res = await fetch('https://ai-healthcare-backend.onrender.com/api/analyze', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+
+        // Data store karein aur default English UI render karein
+        triageResult = data;
+        currentLanguage = 'english';
+        
+        // Button text reset karein
+        const btn = document.getElementById('langToggleBtn');
+        if (btn) btn.innerHTML = '🌐 Switch to Hindi';
+
+        renderUI(currentLanguage);
+
+    } catch (error) {
+        console.error("Fetch Error:", error);
+    }
+}
+
+// 3. UI Render Function (English / Hindi Data Show Karne Ke Liye)
+function renderUI(lang) {
+    if (!triageResult) return;
+
+    // Direct object or fallback
+    const data = triageResult[lang] || triageResult;
+
+    // Helper function to safely update lists
+    const updateList = (id, items) => {
+        const ul = document.getElementById(id);
+        if (ul && Array.isArray(items)) {
+            ul.innerHTML = items.map(item => `<li>${item}</li>`).join('');
+        }
+    };
+
+    updateList('conditionsList', data.possible_conditions || data.causes);
+    updateList('todoList', data.what_to_do || data.whatToDo);
+    updateList('dietList', data.what_to_eat || data.diet);
+    updateList('avoidList', data.what_to_avoid || data.avoid);
+    updateList('otcList', data.otc_medications || data.otc);
+
+    const urgencyText = document.getElementById('urgencyText');
+    if (urgencyText) {
+        urgencyText.textContent = data.doctor_urgency || 'Low';
+    }
+}
+
+// Toggle Language Button Click Function
+function toggleLanguage() {
+    if (!triageResult) return;
+
+    const btn = document.getElementById('langToggleBtn');
+
+    if (currentLanguage === 'english') {
+        currentLanguage = 'hindi';
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-language"></i> <span>Switch to English</span>';
+    } else {
+        currentLanguage = 'english';
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-language"></i> <span>Switch to Hindi</span>';
+    }
+
+    renderResults(triageResult);
 }
