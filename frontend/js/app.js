@@ -1,6 +1,6 @@
 const API_URL = 'https://ai-healthcare-assistant-backend-kgb9.onrender.com/api/analyze';
-
 let triageResult = null;
+
 let currentLanguage = 'english';
 
 // Master Disease Database
@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
         animateCounter(totalChecksElement, localChecks);
 
         // Server se sync karne ke liye fetch call
-        fetch('http://127.0.0.1:8000/api/stats')
+        fetch('https://ai-healthcare-assistant-backend-kgb9.onrender.com/api/stats')
             .then(res => {
                 if (!res.ok) throw new Error('Network error');
                 return res.json();
@@ -304,11 +304,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 const data = await response.json();
+
+                // Store response globally & reset language to english
                 triageResult = data;
                 currentLanguage = 'english';
+
                 const btn = document.getElementById('langToggleBtn');
                 if (btn) btn.innerHTML = '🌐 Switch to Hindi';
-                
+
+                // Render UI with English
                 renderResults(data);
                 let currentCount = parseInt(localStorage.getItem('healthCheckCount') || '0');
                 localStorage.setItem('healthCheckCount', currentCount + 1);
@@ -452,6 +456,8 @@ function submitFeedback(event) {
     document.getElementById('feedbackForm').reset();
 }
 
+
+// 2. Form Submit / Symptom Analyze Handler
 async function analyzeSymptoms(event) {
     if (event) event.preventDefault();
 
@@ -476,7 +482,7 @@ async function analyzeSymptoms(event) {
         
         // Button text reset karein
         const btn = document.getElementById('langToggleBtn');
-        if (btn) btn.innerHTML = '🌐 Switch to Hindi';
+        if (btn) btn.innerHTML = '🌐 Switch to Hinglish';
 
         renderUI(currentLanguage);
 
@@ -485,7 +491,7 @@ async function analyzeSymptoms(event) {
     }
 }
 
-// 3. UI Render Function (English / Hindi Data Show Karne Ke Liye)
+// 3. UI Render Function (English / Hinglish Data Show Karne Ke Liye)
 function renderUI(lang) {
     if (!triageResult) return;
 
