@@ -963,6 +963,8 @@ input:focus, select:focus, textarea:focus {
     
     .btn-lang-switch {
         width: 100%;
+        white-space: nowrap;
+        min-width: 150px;
         justify-content: center;
     }
 }
