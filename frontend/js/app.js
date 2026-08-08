@@ -300,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const btn = document.getElementById('langToggleBtn');
                 if (btn) btn.innerHTML = '<i class="fa-solid fa-language"></i> <span>Switch to Hindi</span>';
 
-                // Render UI with English
+                // Initial UI Render with English
                 renderResults(triageResult);
 
                 let currentCount = parseInt(localStorage.getItem('healthCheckCount') || '0');
@@ -351,45 +351,7 @@ function animateCounter(element, targetValue) {
     }, stepTime);
 }
 
-// Global UI Render Function (English & Hindi Both Strictly Handled)
-function renderResults(data) {
-    // Agar parameter data nahi mila toh global triageResult use karein
-    const activeDataSource = data || triageResult;
-    
-    if (!activeDataSource) {
-        console.error("No triage result available to render.");
-        return;
-    }
-
-    // Direct "english" ya "hindi" object pick karein
-    const currentData = activeDataSource[currentLanguage] || activeDataSource;
-
-    const populateList = (elementId, items) => {
-        const ul = document.getElementById(elementId);
-        if (!ul) return;
-        ul.innerHTML = '';
-        if (Array.isArray(items)) {
-            items.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = item;
-                ul.appendChild(li);
-            });
-        }
-    };
-
-    // Cards populate karein
-    populateList('conditionsList', currentData.possible_conditions || currentData.causes);
-    populateList('todoList', currentData.what_to_do || currentData.whatToDo);
-    populateList('dietList', currentData.what_to_eat || currentData.diet);
-    populateList('avoidList', currentData.what_to_avoid || currentData.avoid);
-    populateList('otcList', currentData.otc_medications || currentData.otc);
-
-    const urgencyText = document.getElementById('urgencyText');
-    if (urgencyText) {
-        urgencyText.textContent = currentData.doctor_urgency || 'Low';
-    }
-}
-
+// Single Global Helper to Populate Lists
 function populateList(elementId, items) {
     const ul = document.getElementById(elementId);
     if (!ul) return;
@@ -403,7 +365,32 @@ function populateList(elementId, items) {
     }
 }
 
-// Global Toggle Handler (Strictly English <-> Hindi)
+// Global UI Render Function
+function renderResults(data) {
+    const activeDataSource = data || triageResult;
+    
+    if (!activeDataSource) {
+        console.error("No triage result available to render.");
+        return;
+    }
+
+    // Direct "english" ya "hindi" object select karein
+    const currentData = activeDataSource[currentLanguage] || activeDataSource;
+
+    // List Containers Refresh
+    populateList('conditionsList', currentData.possible_conditions || currentData.causes);
+    populateList('todoList', currentData.what_to_do || currentData.whatToDo);
+    populateList('dietList', currentData.what_to_eat || currentData.diet);
+    populateList('avoidList', currentData.what_to_avoid || currentData.avoid);
+    populateList('otcList', currentData.otc_medications || currentData.otc);
+
+    const urgencyText = document.getElementById('urgencyText');
+    if (urgencyText) {
+        urgencyText.textContent = currentData.doctor_urgency || 'Low';
+    }
+}
+
+// Global Toggle Handler
 function toggleLanguage() {
     if (!triageResult) {
         alert("Pehle symptoms analyze karein!");
@@ -420,7 +407,7 @@ function toggleLanguage() {
         if (btn) btn.innerHTML = '<i class="fa-solid fa-language"></i> <span>Switch to Hindi</span>';
     }
 
-    // Force re-render with stored data
+    // Force Re-render with stored data
     renderResults(triageResult);
 }
 
