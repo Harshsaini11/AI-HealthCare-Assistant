@@ -130,47 +130,5 @@ app.post('/api/feedback', (req, res) => {
         res.json({ success: true, message: 'Feedback email sent successfully!' });
     });
 });
-
-app.post('/api/symptoms', async (req, res) => {
-    const { symptoms, patientInfo } = req.body;
-
-    const prompt = `
-    User Symptoms: ${symptoms}
-    Patient Info: ${JSON.stringify(patientInfo)}
-
-    Analyze these symptoms and provide a detailed triage report in valid JSON format ONLY.
-    Return responses in TWO languages: "english" and "hinglish" (Roman Hindi / Hindi written in English letters).
-
-    Return strictly this JSON structure without any extra text or markdown formatting:
-    {
-      "english": {
-        "causes": ["Cause 1", "Cause 2"],
-        "whatToDo": ["Action 1", "Action 2"],
-        "diet": ["Diet recommendation 1"],
-        "avoid": ["Thing to avoid 1"],
-        "otc": ["Safe OTC medicine 1"]
-      },
-      "hinglish": {
-        "causes": ["Bimari ya Waja 1", "Bimari ya Waja 2"],
-        "whatToDo": ["Kya karna chahiye 1", "Kya karna chahiye 2"],
-        "diet": ["Khane me kya lein 1"],
-        "avoid": ["Kisse parhez karein 1"],
-        "otc": ["Dawai ya First aid 1"]
-      }
-    }
-    `;
-
-    try {
-        const response = await aiModel.generateContent(prompt);
-        const resultText = response.response.text();
-        
-        // Clean JSON output
-        const cleanJson = JSON.parse(resultText.replace(/```json|```/g, ''));
-        res.json({ success: true, data: cleanJson });
-    } catch (error) {
-        res.status(500).json({ success: false, error: "Triage generation failed." });
-    }
-});
-
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => console.log(`Node.js Server running on port ${PORT}`));
