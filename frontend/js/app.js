@@ -361,16 +361,22 @@ function animateCounter(element, targetValue) {
     }, stepTime);
 }
 
+// UI Render Function (English & Hinglish Both Support)
 function renderResults(data) {
-    populateList('conditionsList', data.possible_conditions);
-    populateList('todoList', data.what_to_do);
-    populateList('dietList', data.what_to_eat);
-    populateList('avoidList', data.what_to_avoid);
-    populateList('otcList', data.otc_medications);
+    if (!data) return;
+
+    // Hinglish switch support ke liye check
+    const currentData = data[currentLanguage] || data;
+
+    populateList('conditionsList', currentData.possible_conditions || currentData.causes);
+    populateList('todoList', currentData.what_to_do || currentData.whatToDo);
+    populateList('dietList', currentData.what_to_eat || currentData.diet);
+    populateList('avoidList', currentData.what_to_avoid || currentData.avoid);
+    populateList('otcList', currentData.otc_medications || currentData.otc);
 
     const urgencyText = document.getElementById('urgencyText');
     if (urgencyText) {
-        urgencyText.textContent = data.doctor_urgency || 'Low';
+        urgencyText.textContent = currentData.doctor_urgency || 'Low';
     }
 }
 
